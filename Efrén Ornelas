@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista Desplegable con Imagen y Enlaces Excel</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #ffdf27, #000000); /* Fondo degradado */
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        select {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        #imagen {
+            margin-top: 30px;
+            max-width: 300px;
+            display: none; /* Ocultar imagen al principio */
+        }
+        /* Estilos para el recuadro de enlaces Excel */
+        .excel-box {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .excel-box input {
+            padding: 10px;
+            font-size: 16px;
+            width: 80%;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .excel-box button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ff7e5f;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .excel-box button:hover {
+            background-color: #feb47b;
+        }
+        /* Estilos para la lista de enlaces */
+        .enlaces-lista {
+            margin-top: 20px;
+            list-style-type: none;
+            padding: 0;
+        }
+        .enlaces-lista li {
+            background-color: #f1f1f1;
+            margin: 5px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: left;
+        }
+        .enlaces-lista li a {
+            text-decoration: none;
+            color: #ff7e5f;
+        }
+        .enlaces-lista li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Imagen de Pirelli Neumáticos en la parte superior -->
+    <img src="pirelli logo.png" alt="Pirelli Neumáticos" width="200">
+
+    <h1>Elige una Minifábrica</h1>
+    
+    <form action="#">
+        <label for="minifabrica">Elige una minifábrica:</label>
+        <select id="minifabrica" name="minifabrica" onchange="mostrarImagen()">
+            <option value="">--Selecciona--</option>
+            <option value="Mezclado">Mezclado</option>
+            <option value="Semielaborados">Semielaborados</option>
+            <option value="Confección">Confección</option>
+            <option value="Vulcanizado">Vulcanizado</option>
+            <option value="Acabado">Acabado</option>
+        </select>
+    </form>
+
+    <!-- Contenedor de la imagen -->
+    <img id="imagen" src="" alt="Imagen de la minifábrica seleccionada">
+
+    <script>
+        function mostrarImagen() {
+            var seleccion = document.getElementById('minifabrica').value;
+            var imagen = document.getElementById('imagen');
+
+            // Establecer la imagen según la selección
+            if (seleccion === 'Mezclado') {
+                imagen.src = 'https://www.example.com/imagen-mezclado.jpg'; // URL de la imagen de Mezclado
+            } else if (seleccion === 'Semielaborados') {
+                imagen.src = 'https://www.example.com/imagen-semielaborados.jpg'; // URL de la imagen de Semielaborados
+            } else if (seleccion === 'Confección') {
+                imagen.src = 'https://www.example.com/imagen-confeccion.jpg'; // URL de la imagen de Confección
+            } else if (seleccion === 'Vulcanizado') {
+                imagen.src = 'https://www.example.com/imagen-vulcanizado.jpg'; // URL de la imagen de Vulcanizado
+            } else if (seleccion === 'Acabado') {
+                imagen.src = 'https://www.example.com/imagen-acabado.jpg'; // URL de la imagen de Acabado
+            } else {
+                imagen.style.display = 'none'; // Ocultar si no hay selección
+                return;
+            }
+
+            imagen.style.display = 'block'; // Mostrar la imagen
+        }
+    </script>
+
+    <!-- Recuadro para agregar enlaces de Excel -->
+    <div class="excel-box">
+        <h2>Agrega un enlace a un archivo Excel</h2>
+        <input type="url" id="excel-link" placeholder="Pega aquí el enlace al archivo Excel" />
+        <br>
+        <button onclick="agregarEnlace()">Agregar Enlace</button>
+    </div>
+
+    <ul class="enlaces-lista" id="enlaces-lista">
+        <!-- Los enlaces se agregarán aquí -->
+    </ul>
+
+    <script>
+        function agregarEnlace() {
+            var enlace = document.getElementById('excel-link').value;
+            if (enlace) {
+                var lista = document.getElementById('enlaces-lista');
+                
+                // Crear un nuevo elemento de lista
+                var li = document.createElement('li');
+                
+                // Crear un enlace dentro del elemento de lista
+                var a = document.createElement('a');
+                a.href = enlace;
+                a.target = '_blank';
+                a.textContent = enlace;
+                
+                // Agregar el enlace al elemento de lista
+                li.appendChild(a);
+                
+                // Agregar el nuevo elemento de lista a la lista de enlaces
+                lista.appendChild(li);
+                
+                // Limpiar el campo de entrada
+                document.getElementById('excel-link').value = '';
+            } else {
+                alert("Por favor, ingresa un enlace válido.");
+            }
+        }
+    </script>
+
+</body>
+</html>
